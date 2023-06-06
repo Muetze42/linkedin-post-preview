@@ -13,7 +13,7 @@
         <textarea class="form-textarea w-full text-black rounded" v-model="input"></textarea>
         <input type="file" accept="image/*" @change="previewImage" class="form-control-file">
         <div class="bg-card-100 dark:bg-card-950 mt-4 rounded-xl border-2 dark:border-card-950">
-            <div class="p-4 text-sm opacity-90 whitespace-pre" v-html="output" />
+            <div class="p-4 text-sm opacity-90 whitespace-break-spaces" v-html="output" />
             <img v-if="preview" :src="preview" alt="image">
         </div>
     </div>
