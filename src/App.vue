@@ -1,5 +1,5 @@
 <template>
-    <header class="fixed top-0 w-full p-2 bg-blue-900 text-white text-center">
+    <header class="fixed top-0 w-full p-2 bg-blue-900 text-white text-center z-50">
         <button type="button" class="border rounded p-1" @click="switchTheme">
             <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
@@ -46,10 +46,19 @@ export default {
                 reader.readAsDataURL(input.files[0]);
             }
         },
+        formatOutput(string) {
+            return string.trim()
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt>')
+                .replace(/'/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/(^|\s)(#[a-z\d-]+)/ig, '$1<span class="text-[#0a66c2] dark:text-[#70b5f9] hover:underline cursor-pointer font-semibold opacity-90">$2</span>')
+        }
     },
     computed: {
         output() {
-            return this.input.trim().replace(/(^|\s)(#[a-z\d-]+)/ig, '$1<span class="text-[#0a66c2] dark:text-[#70b5f9] hover:underline cursor-pointer font-semibold opacity-90">$2</span>')
+            return this.formatOutput(this.input)
         }
     },
     data() {
